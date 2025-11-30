@@ -1,7 +1,15 @@
-FROM node:18
+FROM node:18-alpine
+
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
+
+# শুধুমাত্র index.js কপি করুন
+COPY index.js .
+
+# প্রয়োজনীয় ডিরেক্টরি তৈরি করুন
+RUN mkdir -p public/uploads data
+
+# পোর্ট এক্সপোজ করুন
 EXPOSE 3000
-CMD ["node", "server.js"]
+
+# অ্যাপ্লিকেশন শুরু করুন
+CMD ["node", "index.js"]
